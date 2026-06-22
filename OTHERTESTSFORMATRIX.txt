@@ -1,0 +1,252 @@
+        Matrix m = Matrix.Random(2, 3, rng);
+        Matrix m2 = Matrix.Random(2, 3, rng);
+        Matrix m3 = Matrix.Random(3, 2, rng);
+
+        Console.WriteLine("Matrix:  1");
+        m.Print();
+
+        Console.WriteLine("Matrix:  2");
+        m2.Print();
+
+        Console.WriteLine("Matrix:  3");
+        m3.Print();
+
+        Console.WriteLine("Added Matrix:");
+        Matrix MAdd = Matrix.addMatrix(m, m2);
+        MAdd.Print();
+
+        Console.WriteLine("Subtracted Matrix:");
+        Matrix MSub = Matrix.subMatrix(m, m2);
+        MSub.Print();
+
+        Console.WriteLine("Scalar Matrix: On Matrix 1");
+        Matrix MScalar = Matrix.scalarMatrix(m, 2);
+        MScalar.Print();
+
+        Console.WriteLine("Transpose Matrix: On Matrix 1");
+        Matrix MTranspose = Matrix.transposeMatrix(m);
+        MTranspose.Print();
+
+        Console.WriteLine("Multipication Matrix: On Matrix 1 and 3");
+        Matrix MMul = Matrix.mulMatrix(m, m3);
+        MMul.Print();
+
+        Console.WriteLine("Element-Wise Multipication Matrix: On Matrix 1 and 2");
+        Matrix ME = Matrix.elementWiseMulMatrix(m, m2);
+        ME.Print();
+
+        Console.WriteLine("Map function Matrix: On Matrix 1 m, x => x * 2");
+        Matrix MMap = Matrix.mapMatrix(m, x => x * 2);
+        MMap.Print();
+
+        Console.WriteLine("Map function Matrix: On Matrix 1 m, x => x + 1");
+        Matrix MMap2 = Matrix.mapMatrix(m, x => x + 1);
+        MMap2.Print();
+
+        Console.WriteLine("Map function Matrix: On Matrix 1 m, x => x * x");
+        Matrix MMap3 = Matrix.mapMatrix(m, x => x * x);
+        MMap3.Print();
+
+        Console.WriteLine("---------------------------------------------");
+        Console.WriteLine("Activation class tests");
+
+        Console.WriteLine("Matrix: 1");
+        m.Print();
+
+        Console.WriteLine("Sigmoid Applied: On Matrix 1");
+        Matrix sigmoidResult = Matrix.mapMatrix(m, Activation.sigmoid);
+        sigmoidResult.Print();
+
+        Console.WriteLine("Sigmoid raw derivative");
+        Console.WriteLine(Activation.sigmoidDerivative(0));  // should be 0.25
+
+        Console.WriteLine("Sigmoid output based derivative");
+        double y = Activation.sigmoid(0);
+        Console.WriteLine(Activation.sigmoidDerivativeFromOutput(y)); // also 0.25
+
+
+        Console.WriteLine("---------------------------------------------");
+        Console.WriteLine("Loss class tests with using TrainingSample");
+
+        Matrix input = new Matrix(2, 1);
+        input.Data[0, 0] = 0;
+        input.Data[1, 0] = 1;
+
+        Matrix target = new Matrix(1, 1);
+        target.Data[0, 0] = 1;
+
+        TrainingSample sample = new TrainingSample(input, target);
+
+        Console.WriteLine("Input:");
+        sample.Input.Print();
+
+        Console.WriteLine("Target:");
+        sample.Target.Print();
+
+
+        Console.WriteLine("---------------------------------------------");
+        Console.WriteLine("Layer class test");
+        Console.WriteLine("one forward pass");
+        Matrix input1 = new Matrix(2, 1);
+        Layer layer = new Layer(2, 3, rng);
+        Matrix output = layer.forwardPass(input1);
+        output.Print();
+
+        Console.WriteLine("---------------------------------------------");
+        Console.WriteLine("NeuralNetwork class test");
+        Console.WriteLine("one forward pass");
+        Matrix input2x1 = new Matrix(2, 1);
+        input2x1.Data[0, 0] = 0;
+        input2x1.Data[1, 0] = 0;
+        NeuralNetwork network = new NeuralNetwork(2, 4, 4, 1, rng);
+        Matrix output2x1 = network.forwardPass(input2x1);
+        Console.WriteLine("input----------------------------------------");
+        input2x1.Print();
+        Console.WriteLine("++++++++++++++++++++++++++++++++++++++++++++++");
+        Console.WriteLine("output---------------------------------------");
+        output2x1.Print();
+
+        Console.WriteLine("---------------------------------------------");
+        Console.WriteLine("NeuralNetwork class test");
+        Console.WriteLine("one forward pass");
+        Matrix input2x1X = new Matrix(2, 1);
+        input2x1X.Data[0, 0] = 0;
+        input2x1X.Data[1, 0] = 1;
+        NeuralNetwork network2 = new NeuralNetwork(2, 4, 4, 1, rng);
+        Matrix output2x1X = network.forwardPass(input2x1X);
+        Console.WriteLine("input----------------------------------------");
+        input2x1X.Print();
+        Console.WriteLine("++++++++++++++++++++++++++++++++++++++++++++++");
+        Console.WriteLine("output---------------------------------------");
+        output2x1X.Print();
+
+
+
+        Console.WriteLine("---------------------------------------------");
+        Console.WriteLine("NeuralNetwork class test");
+        Console.WriteLine("one forward pass");
+        Matrix input2x1XYZ = new Matrix(2, 1);
+        input2x1XYZ.Data[0, 0] = 1;
+        input2x1XYZ.Data[1, 0] = 1;
+
+        NeuralNetwork network3 = new NeuralNetwork(2, 4, 4, 1, rng);
+        Matrix output2x1XYZ = network.forwardPass(input2x1XYZ);
+        Console.WriteLine("input----------------------------------------");
+        input2x1XYZ.Print();
+        Console.WriteLine("++++++++++++++++++++++++++++++++++++++++++++++");
+        Console.WriteLine("output---------------------------------------");
+        output2x1XYZ.Print();
+
+        Random rng1 = new Random();
+        Console.WriteLine("---------------------------------------------");
+        Console.WriteLine("NeuralNetwork class test 3");
+        Console.WriteLine("one forward pass");
+        Matrix input2x1XY = new Matrix(2, 1);
+        input2x1XY.Data[0, 0] = 1;
+        input2x1XY.Data[1, 0] = 0;
+        NeuralNetwork network4 = new NeuralNetwork(2, 4, 4, 1, rng);
+        Matrix output2x1XY = network.forwardPass(input2x1XY);
+        Console.WriteLine("input----------------------------------------");
+        input2x1XY.Print();
+        Console.WriteLine("++++++++++++++++++++++++++++++++++++++++++++++");
+        Console.WriteLine("output---------------------------------------");
+        output2x1XY.Print();
+
+
+
+        Console.WriteLine("---------------------------------------------");
+        Console.WriteLine("Fixed Test values ");
+
+        Console.WriteLine("---------------------------------------------");
+        Console.WriteLine("Fixed Matrix Multiply Test");
+
+        Matrix A = new Matrix(2, 3);
+        A.Data[0, 0] = 1; A.Data[0, 1] = 2; A.Data[0, 2] = 3;
+        A.Data[1, 0] = 4; A.Data[1, 1] = 5; A.Data[1, 2] = 6;
+
+        Matrix B = new Matrix(3, 2);
+        B.Data[0, 0] = 7; B.Data[0, 1] = 8;
+        B.Data[1, 0] = 9; B.Data[1, 1] = 10;
+        B.Data[2, 0] = 11; B.Data[2, 1] = 12;
+
+        Matrix C = Matrix.mulMatrix(A, B);
+
+        Console.WriteLine("Expected:");
+        Console.WriteLine("58.000  64.000");
+        Console.WriteLine("139.000 154.000");
+
+        Console.WriteLine("Actual:");
+        C.Print();
+
+        Console.WriteLine("---------------------------------------------");
+        Console.WriteLine("Fixed Loss Test");
+
+        Matrix prediction = new Matrix(1, 1);
+        prediction.Data[0, 0] = 0.8;
+
+        Matrix target1 = new Matrix(1, 1);
+        target.Data[0, 0] = 1.0;
+
+        double loss = Loss.MeanSquaredError(prediction, target);
+        Matrix lossDerivative = Loss.mseDerivative(prediction, target);
+
+        Console.WriteLine("Expected loss: 0.04");
+        Console.WriteLine("Actual loss:");
+        Console.WriteLine(loss);
+
+        Console.WriteLine("Expected derivative: -0.4");
+        Console.WriteLine("Actual derivative:");
+        lossDerivative.Print();
+
+
+        Console.WriteLine("---------------------------------------------");
+        Console.WriteLine("Fixed Activation Test");
+
+        Console.WriteLine("Expected sigmoid(0): 0.5");
+        Console.WriteLine("Actual:");
+        Console.WriteLine(Activation.sigmoid(0));
+
+        Console.WriteLine("Expected sigmoidDerivative(0): 0.25");
+        Console.WriteLine("Actual:");
+        Console.WriteLine(Activation.sigmoidDerivative(0));
+
+        double y2 = Activation.sigmoid(0);
+        Console.WriteLine("Expected sigmoidDerivativeFromOutput(sigmoid(0)): 0.25");
+        Console.WriteLine("Actual:");
+        Console.WriteLine(Activation.sigmoidDerivativeFromOutput(y2));
+
+
+        Console.WriteLine("---------------------------------------------");
+        Console.WriteLine("Fixed Layer Forward Pass Test");
+
+        Layer testLayer = new Layer(2, 2, rng);
+
+        testLayer.weights = new Matrix(2, 2);
+        testLayer.weights.Data[0, 0] = 1;
+        testLayer.weights.Data[0, 1] = 2;
+        testLayer.weights.Data[1, 0] = 3;
+        testLayer.weights.Data[1, 1] = 4;
+
+        testLayer.bias = new Matrix(2, 1);
+        testLayer.bias.Data[0, 0] = 1;
+        testLayer.bias.Data[1, 0] = 1;
+
+        Matrix layerInput = new Matrix(2, 1);
+        layerInput.Data[0, 0] = 1;
+        layerInput.Data[1, 0] = 1;
+
+        Matrix layerOutput = testLayer.forwardPass(layerInput);
+
+        Console.WriteLine("Expected z:");
+        Console.WriteLine("4");
+        Console.WriteLine("8");
+
+        Console.WriteLine("Actual z:");
+        testLayer.z.Print();
+
+        Console.WriteLine("Expected output approximately:");
+        Console.WriteLine("0.982");
+        Console.WriteLine("1.000");
+
+        Console.WriteLine("Actual output:");
+        layerOutput.Print();

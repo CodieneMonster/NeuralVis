@@ -15,10 +15,11 @@ Build a complete neural network system from the ground up, including:
 - Loss functions
 - Layer abstraction
 - Neural network architecture
-- Forward pass (completed)
-- Backpropagation (in progress)
+- Forward pass
+- Backpropagation
 - Training loop
-- Visualization (planned)
+- Visualization
+Completed
 
 Development Approach
 
